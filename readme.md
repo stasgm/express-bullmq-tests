@@ -1,5 +1,19 @@
 # Express-bullmq project for testing
 
+## REST API
+
+The REST API to the example app is described below.
+
+## Add a new job
+
+### Request
+
+`POST /jobs/`
+
+```bash
+curl -i -H 'Accept: application/json' -d '' -X POST localhost:3000/jobs
+```
+
 ## Jobs examples
 
 ### Sucessfull job
