@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "ts-node src/index.ts",
-    "nodemon": "nodemon",
+    "debug": "nodemon --inspect src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "check": "tsc --noemit",

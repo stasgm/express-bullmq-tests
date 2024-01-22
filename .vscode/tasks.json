@@ -10,6 +10,22 @@
       }
     },
     {
+      "label": "🏗️ Build",
+      "command": "npm",
+      "args": ["run", "build"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+      }
+    },
+    {
+      "label": "🏁 Start",
+      "command": "npm",
+      "args": ["run", "start"],
+      "options": {
+        "cwd": "${workspaceFolder}",
+      }
+    },
+    {
       "label": "✅ Check",
       "command": "npm",
       "args": ["run","check"],

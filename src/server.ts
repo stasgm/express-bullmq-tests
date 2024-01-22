@@ -9,7 +9,8 @@ dotenv.config();
 
 export const setupServer = async (): Promise<Application> => {
   const app: Application = express();
-  const port = process.env.PORT ?? 3000;
+
+  app.use(express.json());
 
   const serverAdapter = new ExpressAdapter();
   serverAdapter.setBasePath('/ui');
@@ -19,8 +20,6 @@ export const setupServer = async (): Promise<Application> => {
     serverAdapter,
   });
   
-  await myQueue.resume();
-
   app.use('/ui', serverAdapter.getRouter());
 
   app.get('/', (req: Request, res: Response) => {
@@ -34,6 +33,8 @@ export const setupServer = async (): Promise<Application> => {
     res.json({ jobId: job.id });
     return next();
   });
+
+  const port = process.env.PORT ?? 3000;
 
   app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);

@@ -1,9 +1,9 @@
 import { Job, Worker } from 'bullmq';
 import { QUEUE_NAME, REDIS_QUEUE_HOST, REDIS_QUEUE_PORT } from './config.constants';
-import path from 'node:path';
+import processorFile from './job-processor';
 
 export const setUpWorker = (): Worker => {
-  const processorFile = path.join(__dirname, 'job-processor.ts');
+  // const processorFile = `${__dirname}/job-processor.js`;
 
   const worker = new Worker(QUEUE_NAME, processorFile, {
     connection: {

@@ -1,6 +1,6 @@
 import { Job } from 'bullmq';
 
-export const jobProcessor = async (job: Job): Promise<{ jobId: string }> => {
+export default async (job: Job): Promise<{ jobId: string }> => {
   await job.log(`Started processing job with id ${job.id}`);
 
   console.log(`Job with id ${job.id}`, job.data);
@@ -14,7 +14,7 @@ export const jobProcessor = async (job: Job): Promise<{ jobId: string }> => {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           if (job.data.fail) {
-            return reject(new Error('Failed'));
+            return reject(new Error('Failed due to the fail flag'));
           }
 
           return resolve(`Success: ${step}`);

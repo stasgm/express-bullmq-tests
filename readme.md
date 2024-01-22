@@ -8,7 +8,8 @@
 {
     "data": {
         "steps": 7,
-        "fail": false
+        "fail": false,
+        "delay": 1500
     },
     "options": {
         "delay": 500,
