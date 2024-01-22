@@ -4,14 +4,14 @@ export const REDIS_QUEUE_PORT = process.env.REDIS_QUEUE_PORT ? parseInt(process.
 export const QUEUE_NAME = 'my-queue';
 
 export const DEFAULT_JOB_CONFIG = {
-  removeOnComplete: {
-    age: 3600,
-  },
-  removeOnFail: {
-    age: 24 * 3600,
-  },
+  // removeOnComplete: {
+  //   age: 3600,
+  // },
+  // removeOnFail: {
+  //   age: 24 * 3600,
+  // },
   backoff: {
-    delay: 100,
+    delay: 0,
     type: 'fixed',
   },
 };
