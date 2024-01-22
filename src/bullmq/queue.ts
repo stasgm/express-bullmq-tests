@@ -1,7 +1,17 @@
 import { Job, Queue } from 'bullmq';
-import { REDIS_QUEUE_HOST, REDIS_QUEUE_PORT } from './config.constants';
+import { QUEUE_NAME, REDIS_QUEUE_HOST, REDIS_QUEUE_PORT } from './config.constants';
 
-export const myQueue = new Queue('my-queue', {
+type DelayJobOption = { runAt?: never; delay?: number } | { runAt?: Date; delay?: never };
+type JobOptions = { attempts?: number; priority?: number } & DelayJobOption;
+type AddJobToQueue = <T>(data: T, options?: JobOptions) => Promise<Job<T>>;
+
+const getDelayByDate = (runAt: Date): number => {
+  const targetTime = new Date(runAt);
+  const delayTime = Number(targetTime) - Number(new Date());
+  return delayTime > 0 ? delayTime : 0;
+};
+
+export const myQueue = new Queue(QUEUE_NAME, {
   connection: {
     host: REDIS_QUEUE_HOST,
     port: REDIS_QUEUE_PORT,
@@ -17,6 +27,14 @@ const DEFAULT_REMOVE_CONFIG = {
   },
 };
 
-export async function addJobToQueue<T>(data: T): Promise<Job<T>> {
-  return myQueue.add('job', data, DEFAULT_REMOVE_CONFIG);
-}
+export const addJobToQueue: AddJobToQueue = async (data, options) => {
+  return myQueue.add('job', data, {
+    attempts: options?.attempts ?? 3,
+    delay: options?.runAt ? getDelayByDate(options.runAt) : options?.delay ?? 0,
+    backoff: {
+      delay: 100,
+      type: 'fixed',
+    },
+    ...DEFAULT_REMOVE_CONFIG,
+  });
+};

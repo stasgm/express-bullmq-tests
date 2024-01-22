@@ -1,18 +1,32 @@
 import { Job } from 'bullmq';
 
-const sleep = (t: number) => new Promise((resolve) => setTimeout(resolve, t * 1000));
-
 export const jobProcessor = async (job: Job): Promise<{ jobId: string }> => {
   await job.log(`Started processing job with id ${job.id}`);
 
   console.log(`Job with id ${job.id}`, job.data);
 
-  for (let i = 0; i <= 100; i++) {
-    await sleep(Math.random());
-    await job.updateProgress(i);
-    await job.log(`Processing job at interval ${i}`);
+  const itemCount = job.data.steps || 1;
+  const steps = Array(itemCount).fill(0);
+  const delay = job.data.delay || 0;
 
-    if (Math.random() * 200 < 1) throw new Error(`Random error ${i}`);
+  for await (const [idx, step] of steps.entries()) {
+    try {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (job.data.fail) {
+            return reject(new Error('Failed'));
+          }
+
+          return resolve(`Success: ${step}`);
+        }, delay);
+      });
+
+      const progressPercent = Math.round((idx + 1) * (1 / itemCount) * 100);
+      await job.updateProgress(progressPercent);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed';
+      throw new Error(message);
+    }
   }
 
   await job.updateProgress(100);
