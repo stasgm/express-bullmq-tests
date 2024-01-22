@@ -67,8 +67,6 @@ export const setupServer = async (): Promise<Application> => {
   app.post('/fake-timer', async (req: Request, res: Response, next: NextFunction) => {
     const { months = 1 } = req.body || {};
 
-    console.log(`Current time before: ${new Date().toISOString()}`);
-
     const newDate = addMonths(new Date(), months);
 
     if (!clock) {
@@ -80,7 +78,6 @@ export const setupServer = async (): Promise<Application> => {
 
     clock.setSystemTime(newDate);
 
-    console.log(`Current time after: ${new Date().toISOString()}`);
     res.json({ currentDate: new Date().toISOString() });
   });
 
