@@ -1,4 +1,4 @@
-# Bullmq-express
+# Express-bullmq project for testing
 
 ## Jobs examples
 
