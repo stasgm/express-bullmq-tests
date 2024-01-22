@@ -31,4 +31,20 @@
         "priority": 1
     }
 }
+
+```
+
+### Delayed job
+
+```json
+{
+    "data": {
+        "steps": 7,
+        "fail": false
+    },
+    "options": {
+        "runAt": "2024-07-18",
+        "priority": 1
+    }
+}
 ```
