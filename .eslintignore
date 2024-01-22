@@ -1,0 +1,13 @@
+**/build/**
+**/dist/**
+**/deploy/**
+/coverage/**
+/docs/**
+/tests/*
+/tmp/**
+test.js
+**/node_modules/**
+**/__generated__/
+jest.config.js
+/*.*
+.eslintrc.js
