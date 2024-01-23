@@ -11,10 +11,42 @@ The REST API to the example app is described below.
 `POST /jobs/`
 
 ```bash
-curl -i -H 'Accept: application/json' -d '' -X POST localhost:3000/jobs
+curl -i -H 'Accept: application/json' -d '' -X POST http://localhost:3000/jobs
 ```
 
-## Jobs examples
+## Advance the clock
+
+`POST /fake-timer/`
+
+```bash
+curl -i -H 'Accept: application/json' -d '' -X POST http://localhost:3000/fake-timer
+```
+
+Body params:
+
+```json
+{
+    "months": 3
+}
+```
+
+## Check the current server time
+
+`GET /fake-timer/`
+
+```bash
+curl -i -H 'Accept: application/json' -d '' http://localhost:3000/fake-timer
+```
+
+## Reset time
+
+`POST /fake-timer/reset/`
+
+```bash
+curl -i -H 'Accept: application/json' -d '' -X POST http://localhost:3000/fake-timer/reset
+```
+
+## Jobs body params examples
 
 ### Sucessfull job
 
