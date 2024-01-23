@@ -26,7 +26,6 @@ curl -i -H 'Accept: application/json' -d '' -X POST localhost:3000/jobs
         "delay": 1500
     },
     "options": {
-        "delay": 500,
         "priority": 1
     }
 }
@@ -41,7 +40,6 @@ curl -i -H 'Accept: application/json' -d '' -X POST localhost:3000/jobs
         "fail": true
     },
     "options": {
-        "delay": 500,
         "priority": 1
     }
 }
