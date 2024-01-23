@@ -35,7 +35,7 @@ Body params:
 `GET /fake-timer/`
 
 ```bash
-curl -i -H 'Accept: application/json' -d '' http://localhost:3000/fake-timer
+curl -i -H 'Accept: application/json' -X GET http://localhost:3000/fake-timer
 ```
 
 ## Reset time
